@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Estudiantes | IPHA Enfermería Escolar</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div id="app" data-page="students">
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow">Directorio escolar</p>
+          <h1>Estudiantes</h1>
+          <p>Busca y filtra los registros disponibles.</p>
+        </div>
+        <button class="btn" id="addStudentButton" type="button">
+          + Agregar estudiante
+        </button>
+      </section>
+      <section class="card">
+        <div class="card-heading">
+          <div>
+            <h2>Directorio de estudiantes</h2>
+            <p id="resultCount">Cargando registros…</p>
+          </div>
+        </div>
+        <div class="filters-grid student-filters">
+          <input
+            class="search-field"
+            id="studentSearch"
+            type="search"
+            placeholder="Buscar por nombre, matrícula, curso o mención"
+            aria-label="Buscar por nombre, matrícula, curso o mención"
+          />
+          <select
+            class="filter-select"
+            id="gradeFilter"
+            aria-label="Filtrar por curso"
+          >
+            <option value="">Todos los cursos</option>
+            <option>4.º Secundaria</option>
+            <option>5.º Secundaria</option>
+            <option>6.º Secundaria</option>
+          </select>
+          <select
+            class="filter-select"
+            id="mentionFilter"
+            aria-label="Filtrar por mención técnica"
+          >
+            <option value="">Todas las menciones técnicas</option>
+          </select>
+          <select
+            class="filter-select"
+            id="visitFilter"
+            aria-label="Filtrar por visitas"
+          >
+            <option value="">Cualquier frecuencia</option>
+            <option value="has">Con visitas</option>
+            <option value="none">Sin visitas</option>
+            <option value="frequent">3 o más visitas</option>
+          </select>
+        </div>
+        <div class="need-legend" aria-label="Leyenda de prioridad de atención">
+          <strong>Prioridad orientativa:</strong
+          ><span class="need-tag level-1">Leve</span
+          ><span class="need-tag level-2">Media</span
+          ><span class="need-tag level-3">Grave</span
+          ><span class="priority-note"
+            >Definida por el personal; no es un diagnóstico.</span
+          >
+        </div>
+        <div id="studentTable"></div>
+      </section>
+      <dialog
+        class="student-details-dialog student-create-dialog"
+        id="addStudentDialog"
+        aria-labelledby="addStudentTitle"
+      >
+        <div class="student-dialog-top">
+          <div>
+            <p class="eyebrow">Directorio escolar</p>
+            <h2 id="addStudentTitle">Agregar estudiante</h2>
+            <p>Completa la información disponible en el registro escolar.</p>
+          </div>
+          <button
+            class="dialog-close"
+            id="closeAddStudent"
+            type="button"
+            aria-label="Cerrar formulario"
+          >
+            ×
+          </button>
+        </div>
+        <form id="addStudentForm">
+          <div class="student-dialog-panel">
+            <div class="fields-grid">
+              <div class="field full">
+                <label for="newStudentId">Matrícula o código escolar *</label
+                ><input
+                  id="newStudentId"
+                  name="id"
+                  required
+                  maxlength="40"
+                  placeholder="Ingresa matrícula o código escolar"
+                />
+              </div>
+              <div class="field full">
+                <label for="newStudentName">Nombre completo *</label
+                ><input
+                  id="newStudentName"
+                  name="name"
+                  required
+                  maxlength="120"
+                />
+              </div>
+              <div class="field">
+                <label for="newStudentGrade">Curso *</label
+                ><select id="newStudentGrade" name="grade" required>
+                  <option>4.º Secundaria</option>
+                  <option>5.º Secundaria</option>
+                  <option>6.º Secundaria</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="newStudentMention">Mención técnica *</label
+                ><select id="newStudentMention" name="mention" required>
+                  <option value="">Selecciona una mención</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="newStudentAge">Edad</label
+                ><input
+                  id="newStudentAge"
+                  name="age"
+                  type="number"
+                  min="10"
+                  max="25"
+                />
+              </div>
+              <div class="field">
+                <label for="newStudentStatus">Estado del registro</label
+                ><select id="newStudentStatus" name="status">
+                  <option value="">Pendiente al crear</option>
+                  <option>Pendiente</option>
+                  <option>Al día</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="newStudentPriority">Prioridad de atención</label
+                ><select id="newStudentPriority" name="priority">
+                  <option value="">Sin clasificar</option></select
+                ><small
+                  >Leve, media o grave; es orientativa, no un
+                  diagnóstico.</small
+                >
+              </div>
+              <div class="field">
+                <label for="newStudentGuardian">Tutor responsable</label
+                ><input
+                  id="newStudentGuardian"
+                  name="guardian"
+                  maxlength="120"
+                />
+              </div>
+              <div class="field">
+                <label for="newStudentPhone">Teléfono del tutor</label
+                ><input
+                  id="newStudentPhone"
+                  name="phone"
+                  type="tel"
+                  maxlength="30"
+                />
+              </div>
+              <div class="field">
+                <label for="newStudentBlood">Grupo sanguíneo</label
+                ><input id="newStudentBlood" name="blood" maxlength="12" />
+              </div>
+              <div class="field">
+                <label for="newStudentAllergies">Alergias conocidas</label
+                ><input
+                  id="newStudentAllergies"
+                  name="allergies"
+                  maxlength="180"
+                />
+              </div>
+              <div class="field full">
+                <label for="newStudentNotes">Observaciones</label
+                ><textarea
+                  id="newStudentNotes"
+                  name="notes"
+                  maxlength="500"
+                ></textarea>
+              </div>
+            </div>
+            <p class="prototype-note">
+              El registro se guarda únicamente en este navegador. No ingreses
+              datos reales; en producción se debe consultar y guardar mediante
+              la base escolar.
+            </p>
+            <div class="form-buttons">
+              <button class="btn secondary" id="cancelAddStudent" type="button">
+                Cancelar</button
+              ><button class="btn" type="submit">Guardar estudiante</button>
+            </div>
+          </div>
+        </form>
+      </dialog>
+      <dialog
+        class="student-details-dialog student-duplicate-dialog"
+        id="studentDuplicateDialog"
+        aria-labelledby="studentDuplicateTitle"
+      >
+        <div class="student-dialog-top">
+          <div>
+            <p class="eyebrow">Comprobación del directorio</p>
+            <h2 id="studentDuplicateTitle">Posible estudiante ya registrado</h2>
+            <p>Compara los datos antes de crear otro registro.</p>
+          </div>
+          <button
+            class="dialog-close"
+            id="closeStudentDuplicate"
+            type="button"
+            aria-label="Volver al formulario"
+          >
+            ×
+          </button>
+        </div>
+        <div class="student-dialog-panel">
+          <p class="panel-subtitle" id="studentDuplicateMessage"></p>
+          <p class="prototype-note">
+            Los campos vacíos no reemplazan información existente; las
+            observaciones nuevas se agregan al historial. Al actualizar una
+            coincidencia, se conserva la matrícula del registro existente.
+          </p>
+          <div
+            class="student-duplicate-candidates"
+            id="studentDuplicateCandidates"
+          ></div>
+          <div class="student-duplicate-create" id="studentDuplicateCreateWrap">
+            <p>
+              Si confirmaste que se trata de otra persona, puedes crear un
+              registro separado.
+            </p>
+            <button
+              class="btn secondary"
+              id="createSeparateStudent"
+              type="button"
+            >
+              Crear como estudiante diferente
+            </button>
+          </div>
+          <div class="form-buttons">
+            <button
+              class="btn secondary"
+              id="returnToStudentForm"
+              type="button"
+            >
+              Volver al formulario
+            </button>
+          </div>
+        </div>
+      </dialog>
+      <p class="prototype-note">
+        Los registros se guardan localmente; el directorio aún no está conectado
+        a la base de datos escolar.
+      </p>
+    </div>
+  </body>
+</html>

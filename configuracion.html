@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Configuración | IPHA Enfermería Escolar</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div id="app" data-page="settings">
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow">Preferencias del sistema</p>
+          <h1>Configuración</h1>
+          <p>Información sobre el almacenamiento y la protección de datos.</p>
+        </div>
+      </section>
+      <div class="form-layout">
+        <div>
+          <section class="form-section">
+            <h2 class="section-heading">
+              <i class="section-marker"></i>Almacenamiento
+            </h2>
+            <p class="panel-subtitle">
+              Los registros ingresados se guardan únicamente en este navegador y
+              no se sincronizan con la base de datos escolar.
+            </p>
+            <p class="prototype-note">
+              No ingreses información real de estudiantes hasta integrar el
+              servidor y la base de datos.
+            </p>
+          </section>
+        </div>
+        <aside class="side-note">
+          <h3>Seguridad y permisos</h3>
+          <p>
+            La selección de rol solo modifica la interfaz; no constituye
+            autenticación segura.
+          </p>
+          <p>
+            TODO: integrar endpoints Flask/MySQL y validar permisos de
+            Administración en el servidor.
+          </p>
+          <p>La auditoría persistente debe implementarse en el servidor.</p>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>

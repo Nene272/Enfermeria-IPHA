@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Administración | IPHA Enfermería Escolar</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div id="app" data-page="admin">
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow">Supervisión del sistema</p>
+          <h1>Administración</h1>
+          <p>Actividad, comunicaciones y registros archivados.</p>
+        </div>
+        <a class="btn secondary" href="cierre-escolar.html"
+          >Abrir cierre escolar</a
+        >
+      </section>
+      <section class="stats-grid">
+        <article class="stat-card">
+          <span class="stat-label">Estudiantes activos</span
+          ><strong class="stat-value" id="adminStudents">0</strong
+          ><small class="stat-note">Directorio actual</small>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Mensajes</span
+          ><strong class="stat-value" id="adminMessages">0</strong
+          ><small class="stat-note">Bandeja local</small>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Eventos de actividad</span
+          ><strong class="stat-value" id="adminEvents">0</strong
+          ><small class="stat-note">Registro local</small>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Registros archivados</span
+          ><strong class="stat-value" id="adminArchived">0</strong
+          ><small class="stat-note">Conservados para revisión</small>
+        </article>
+      </section>
+      <section class="card">
+        <div class="card-heading">
+          <div>
+            <h2>Actividad reciente</h2>
+            <p>Fecha, rol y acción registrada localmente.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Rol</th>
+                <th>Acción</th>
+                <th>Detalle</th>
+              </tr>
+            </thead>
+            <tbody id="auditRows"></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-heading">
+          <div>
+            <h2>Archivo de estudiantes</h2>
+            <p>
+              Los registros archivados se conservan y no se eliminan
+              permanentemente.
+            </p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Estudiante</th>
+                <th>Curso y mención técnica</th>
+                <th>Fecha de archivo</th>
+                <th>Retención</th>
+              </tr>
+            </thead>
+            <tbody id="archiveRows"></tbody>
+          </table>
+        </div>
+      </section>
+      <p class="prototype-note">
+        Este registro local no constituye una auditoría segura. En producción,
+        las autorizaciones y el registro deben validarse en el servidor.
+      </p>
+    </div>
+  </body>
+</html>

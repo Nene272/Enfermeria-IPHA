@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cierre escolar | IPHA Enfermería Escolar</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div id="app" data-page="yearEnd">
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow">Gestión académica</p>
+          <h1>Cierre del año escolar</h1>
+          <p>Previsualiza promociones y archiva graduados con confirmación.</p>
+        </div>
+      </section>
+      <div class="dashboard-grid">
+        <section class="card">
+          <div class="card-heading">
+            <div>
+              <h2>Política de egreso</h2>
+              <p>Selecciona el curso que se considera de egreso.</p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="graduateGrade">Curso de egreso</label
+            ><select class="control" id="graduateGrade">
+              <option>6.º Secundaria</option>
+              <option>5.º Secundaria</option>
+              <option>4.º Secundaria</option>
+            </select>
+          </div>
+          <div class="callout" style="margin-top: 14px">
+            Los expedientes se archivan para revisión de retención; no se borran
+            de forma permanente.
+          </div>
+          <div class="form-buttons">
+            <button class="btn danger" id="confirmPromotion" type="button">
+              Confirmar promoción y archivo
+            </button>
+          </div>
+        </section>
+        <aside class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Antes de confirmar</h2>
+              <p>
+                Revisa la vista previa y valida la política con la institución.
+              </p>
+            </div>
+          </div>
+          <ol class="side-note">
+            <li>Quienes continúan avanzan al curso siguiente.</li>
+            <li>El curso de egreso pasa al archivo.</li>
+            <li>La acción requiere confirmación de Administración.</li>
+          </ol>
+          <p class="prototype-note">
+            TODO: cargar la política institucional desde Flask/MySQL y auditar
+            la confirmación en servidor.
+          </p>
+        </aside>
+      </div>
+      <section class="card" style="margin-top: 15px">
+        <div class="card-heading">
+          <div>
+            <h2>Vista previa</h2>
+            <p>No se aplicarán cambios hasta confirmar.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Estudiante</th>
+                <th>Curso actual</th>
+                <th>Acción prevista</th>
+              </tr>
+            </thead>
+            <tbody id="promotionRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
