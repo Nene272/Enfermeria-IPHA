@@ -1,0 +1,23 @@
+PUESTA EN MARCHA - Enfermería IPHA
+==================================
+1) Instalar dependencias (idealmente en un entorno virtual):
+     pip install -r requirements.txt
+
+2) Base de datos (MySQL):
+     mysql -u root -p < dbo.sql
+   Luego crear el usuario de la app (última parte de backend/sql/02_ajustes.sql, cambiando la clave).
+   Si dbo.sql ya incluye grupo_sanguineo / presentacion / cantidad_entregada, NO ejecutes
+   migracion.sql ni los ALTER de 02_ajustes.sql (daría "Duplicate column").
+
+3) Configuración:
+     copiar .env.example a .env y llenar DB_USER, DB_PASSWORD y SECRET_KEY.
+
+4) Contraseñas de los 3 roles (una sola vez):
+     cd backend
+     python set_passwords.py
+
+5) Arrancar:
+     python servidor.py
+   y abrir http://localhost:5000   (no abrir los .html con doble clic)
+
+La carpeta _obsoletos/ guarda archivos que ya no se usan, por si los necesitas. Se puede borrar.
