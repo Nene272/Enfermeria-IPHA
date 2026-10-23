@@ -1,130 +1,47 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Editar estudiante | IPHA Enfermería Escolar</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
-  </head>
-  <body>
-    <div id="app" data-page="edit">
-      <section class="page-heading">
-        <div>
-          <p class="eyebrow">Directorio escolar / Actualizar registro</p>
-          <h1>Editar estudiante</h1>
-          <p>Actualiza los datos del estudiante seleccionado.</p>
-        </div>
-        <a class="btn secondary" href="consultar-estudiantes.html"
-          >← Volver al directorio</a
-        >
-      </section>
-      <form id="studentForm">
-        <div class="form-layout">
-          <div>
-            <section class="form-section">
-              <h2 class="section-heading">
-                <i class="section-marker"></i>Datos del estudiante
-              </h2>
-              <div class="fields-grid">
-                <div class="field full">
-                  <label for="name">Nombre completo *</label
-                  ><input id="name" name="name" required />
-                </div>
-                <div class="field">
-                  <label for="grade">Curso *</label
-                  ><select id="grade" name="grade" required>
-                    <option>4.º Secundaria</option>
-                    <option>5.º Secundaria</option>
-                    <option>6.º Secundaria</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="mention">Mención técnica *</label
-                  ><select id="mention" name="mention" required>
-                    <option value="">Selecciona una mención técnica</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="age">Edad *</label
-                  ><input
-                    id="age"
-                    name="age"
-                    type="number"
-                    min="3"
-                    max="25"
-                    required
-                  />
-                </div>
-                <div class="field">
-                  <label for="status">Estado del registro</label
-                  ><select id="status" name="status">
-                    <option>Al día</option>
-                    <option>Revisar</option>
-                    <option>Pendiente</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="priority">Prioridad de atención</label
-                  ><select id="priority" name="priority">
-                    <option value="">Sin clasificar</option></select
-                  ><small
-                    >Leve, media o grave; es orientativa, no un
-                    diagnóstico.</small
-                  >
-                </div>
-              </div>
-            </section>
-            <section class="form-section">
-              <h2 class="section-heading">
-                <i class="section-marker orange"></i>Contacto y observaciones
-              </h2>
-              <div class="fields-grid">
-                <div class="field">
-                  <label for="guardian">Tutor responsable *</label
-                  ><input id="guardian" name="guardian" required />
-                </div>
-                <div class="field">
-                  <label for="phone">Teléfono *</label
-                  ><input id="phone" name="phone" type="tel" required />
-                </div>
-                <div class="field">
-                  <label for="blood">Grupo sanguíneo</label
-                  ><input id="blood" name="blood" />
-                </div>
-                <div class="field">
-                  <label for="allergies">Alergias conocidas</label
-                  ><input id="allergies" name="allergies" />
-                </div>
-                <div class="field full">
-                  <label for="notes">Observaciones</label
-                  ><textarea id="notes" name="notes"></textarea>
-                </div>
-              </div>
-              <div class="form-buttons">
-                <a class="btn secondary" href="consultar-estudiantes.html"
-                  >Cancelar</a
-                ><button class="btn" type="submit">Guardar cambios</button>
-              </div>
-            </section>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Editar estudiante | IPHA Enfermería Escolar</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<div id="app" data-page="edit">
+  <section class="page-heading">
+    <div><p class="eyebrow">Directorio escolar / Actualizar registro</p><h1>Editar estudiante</h1><p>Actualiza los datos del estudiante seleccionado.</p></div>
+    <a class="btn secondary" href="consultar-estudiantes.html">← Volver al directorio</a>
+  </section>
+  <form id="studentForm">
+    <div class="form-layout">
+      <div>
+        <section class="form-section">
+          <h2 class="section-heading"><i class="section-marker"></i>Datos del estudiante</h2>
+          <div class="fields-grid">
+            <div class="field full"><label for="name">Nombre completo *</label><input id="name" name="name" required></div>
+            <div class="field"><label for="grade">Curso *</label><select id="grade" name="grade" required><option>4.º Secundaria</option><option>5.º Secundaria</option><option>6.º Secundaria</option></select></div>
+            <div class="field"><label for="mention">Mención técnica *</label><select id="mention" name="mention" required><option value="">Selecciona una mención técnica</option></select></div>
+            <div class="field"><label for="age">Edad *</label><input id="age" name="age" type="number" min="3" max="25" required></div>
+            <div class="field"><label for="status">Estado del registro</label><select id="status" name="status"><option>Al día</option><option>Revisar</option><option>Pendiente</option></select></div>
+            <div class="field"><label for="priority">Prioridad de atención</label><select id="priority" name="priority"><option value="">Sin clasificar</option></select><small>Leve, media o grave; es orientativa, no un diagnóstico.</small></div>
           </div>
-          <aside class="side-note">
-            <h3>Edición local</h3>
-            <p>
-              Los cambios se guardan localmente y se reflejan en el directorio
-              de este navegador.
-            </p>
-            <p>
-              La prioridad es una categoría orientativa de atención y no
-              sustituye una valoración clínica.
-            </p>
-            <p>
-              La edición de registros reales requiere autorización del servidor
-              y auditoría.
-            </p>
-          </aside>
-        </div>
-      </form>
+        </section>
+        <section class="form-section">
+          <h2 class="section-heading"><i class="section-marker orange"></i>Contacto y observaciones</h2>
+          <div class="fields-grid">
+            <div class="field"><label for="guardian">Tutor responsable *</label><input id="guardian" name="guardian" required></div>
+            <div class="field"><label for="phone">Teléfono *</label><input id="phone" name="phone" type="tel" required></div>
+            <div class="field"><label for="blood">Grupo sanguíneo</label><input id="blood" name="blood"></div>
+            <div class="field"><label for="allergies">Alergias conocidas</label><input id="allergies" name="allergies"></div>
+            <div class="field full"><label for="notes">Observaciones</label><textarea id="notes" name="notes"></textarea></div>
+          </div>
+          <div class="form-buttons"><a class="btn secondary" href="consultar-estudiantes.html">Cancelar</a><button class="btn" type="submit">Guardar cambios</button></div>
+        </section>
+      </div>
+      <aside class="side-note"><h3>Edición local</h3><p>Los cambios se guardan localmente y se reflejan en el directorio de este navegador.</p><p>La prioridad es una categoría orientativa de atención y no sustituye una valoración clínica.</p><p>La edición de registros reales requiere autorización del servidor y auditoría.</p></aside>
     </div>
-  </body>
+  </form>
+</div>
+</body>
 </html>

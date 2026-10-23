@@ -1,122 +1,44 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Reportes | IPHA Enfermería Escolar</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
-  </head>
-  <body>
-    <div id="app" data-page="reports">
-      <section class="page-heading">
-        <div>
-          <p class="eyebrow">Administración</p>
-          <h1>Reportes</h1>
-          <p>Resumen de visitas por mes, curso y mención técnica.</p>
-        </div>
-        <span class="status">Datos locales</span>
-      </section>
-      <section class="card">
-        <div class="card-heading">
-          <div>
-            <h2>Filtrar visitas</h2>
-            <p>
-              Los resultados se muestran como totales, sin nombres ni
-              información médica.
-            </p>
-          </div>
-        </div>
-        <div class="report-controls">
-          <div class="field">
-            <label for="reportMonth">Mes</label
-            ><select class="filter-select" id="reportMonth">
-              <option value="">Todos los meses</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="reportGrade">Curso</label
-            ><select class="filter-select" id="reportGrade">
-              <option value="">Todos los cursos</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="reportMention">Mención técnica</label
-            ><select class="filter-select" id="reportMention">
-              <option value="">Todas las menciones</option>
-            </select>
-          </div>
-          <button class="btn secondary" id="exportVisitReport" type="button">
-            Descargar CSV
-          </button>
-        </div>
-        <div class="report-stats">
-          <article class="stat-card">
-            <span class="stat-label">Visitas encontradas</span
-            ><strong class="stat-value" id="reportVisitTotal">0</strong>
-          </article>
-          <article class="stat-card">
-            <span class="stat-label">Estudiantes atendidos</span
-            ><strong class="stat-value" id="reportStudentTotal">0</strong>
-          </article>
-          <article class="stat-card">
-            <span class="stat-label">Despachados</span
-            ><strong class="stat-value" id="reportDispatchedTotal">0</strong>
-          </article>
-        </div>
-        <div class="card-heading report-subheading">
-          <div>
-            <h2>Visitas por curso y mención</h2>
-            <p>Solo se incluyen grupos con visitas registradas.</p>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Curso</th>
-                <th>Mención técnica</th>
-                <th>Visitas</th>
-                <th>Despachados</th>
-              </tr>
-            </thead>
-            <tbody id="reportRows"></tbody>
-          </table>
-        </div>
-      </section>
-      <section class="card">
-        <div class="card-heading">
-          <div>
-            <h2>Solicitudes de medicamentos</h2>
-            <p>
-              Totales de toda la bandeja; no se asocian a estudiantes ni se
-              agrupan por curso.
-            </p>
-          </div>
-        </div>
-        <div class="report-medication-stats">
-          <article class="split-stat">
-            <span>Total de solicitudes</span
-            ><strong id="reportMedicationTotal">0</strong>
-          </article>
-          <article class="split-stat">
-            <span>Pendientes</span
-            ><strong id="reportMedicationPending">0</strong>
-          </article>
-          <article class="split-stat">
-            <span>Atendidas</span
-            ><strong id="reportMedicationAttended">0</strong>
-          </article>
-          <article class="split-stat">
-            <span>No disponibles</span
-            ><strong id="reportMedicationUnavailable">0</strong>
-          </article>
-        </div>
-      </section>
-      <p class="prototype-note">
-        Los datos se guardan localmente. La exportación y los permisos deben
-        validarse en el servidor al integrar Flask/MySQL.
-      </p>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Reportes | IPHA Enfermería Escolar</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<div id="app" data-page="reports">
+  <section class="page-heading">
+    <div><p class="eyebrow">Administración</p><h1>Reportes</h1><p>Resumen de visitas por mes, curso y mención técnica.</p></div>
+    <span class="status">Datos locales</span>
+  </section>
+  <section class="card">
+    <div class="card-heading"><div><h2>Filtrar visitas</h2><p>Los resultados se muestran como totales, sin nombres ni información médica.</p></div></div>
+    <div class="report-controls">
+      <div class="field"><label for="reportMonth">Mes</label><select class="filter-select" id="reportMonth"><option value="">Todos los meses</option></select></div>
+      <div class="field"><label for="reportGrade">Curso</label><select class="filter-select" id="reportGrade"><option value="">Todos los cursos</option></select></div>
+      <div class="field"><label for="reportMention">Mención técnica</label><select class="filter-select" id="reportMention"><option value="">Todas las menciones</option></select></div>
+      <button class="btn secondary" id="exportVisitReport" type="button">Descargar CSV</button>
     </div>
-  </body>
+    <div class="report-stats">
+      <article class="stat-card"><span class="stat-label">Visitas encontradas</span><strong class="stat-value" id="reportVisitTotal">0</strong></article>
+      <article class="stat-card"><span class="stat-label">Estudiantes atendidos</span><strong class="stat-value" id="reportStudentTotal">0</strong></article>
+      <article class="stat-card"><span class="stat-label">Despachados</span><strong class="stat-value" id="reportDispatchedTotal">0</strong></article>
+    </div>
+    <div class="card-heading report-subheading"><div><h2>Visitas por curso y mención</h2><p>Solo se incluyen grupos con visitas registradas.</p></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Curso</th><th>Mención técnica</th><th>Visitas</th><th>Despachados</th></tr></thead><tbody id="reportRows"></tbody></table></div>
+  </section>
+  <section class="card">
+    <div class="card-heading"><div><h2>Solicitudes de medicamentos</h2><p>Totales de toda la bandeja; no se asocian a estudiantes ni se agrupan por curso.</p></div></div>
+    <div class="report-medication-stats">
+      <article class="split-stat"><span>Total de solicitudes</span><strong id="reportMedicationTotal">0</strong></article>
+      <article class="split-stat"><span>Pendientes</span><strong id="reportMedicationPending">0</strong></article>
+      <article class="split-stat"><span>Atendidas</span><strong id="reportMedicationAttended">0</strong></article>
+      <article class="split-stat"><span>No disponibles</span><strong id="reportMedicationUnavailable">0</strong></article>
+    </div>
+  </section>
+  <p class="prototype-note">Los datos se guardan localmente. La exportación y los permisos deben validarse en el servidor al integrar Flask/MySQL.</p>
+</div>
+</body>
 </html>
