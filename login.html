@@ -1,100 +1,59 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Iniciar sesión | IPHA Enfermería Escolar</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="login.js" defer></script>
-  </head>
-  <body class="login-page">
-    <main class="login-frame">
-      <section class="login-intro" aria-label="Información institucional">
-        <a class="login-brand" href="index.html">
-          <img src="ipha-logo.png" alt="Logo IPHA" />
-          <span><strong>IPHA</strong><small>Enfermería escolar</small></span>
-        </a>
-        <div class="login-welcome">
-          <p class="eyebrow">Sistema de atención escolar</p>
-          <h1>Un espacio de cuidado para nuestra comunidad.</h1>
-          <p>
-            Selecciona tu rol e ingresa la contraseña de demostración para
-            continuar.
-          </p>
-        </div>
-        <section
-          class="login-demo-credentials"
-          aria-labelledby="demoCredentialsTitle"
-        >
-          <h2 id="demoCredentialsTitle">Credenciales ficticias de prueba</h2>
-          <p>
-            <strong>Enfermería</strong
-            ><code>Contraseña: Demo-Enfermeria-26</code>
-          </p>
-          <p>
-            <strong>Orientación</strong
-            ><code>Contraseña: Demo-Orientacion-26</code>
-          </p>
-          <p>
-            <strong>Administración</strong
-            ><code>Contraseña: Demo-Admin-26</code>
-          </p>
-        </section>
-        <p class="login-intro-foot">
-          Solo demostración local · No uses datos ni contraseñas reales
-        </p>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Iniciar sesión | IPHA Enfermería Escolar</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="login.js" defer></script>
+</head>
+<body class="login-page">
+  <main class="login-frame">
+    <section class="login-intro" aria-label="Información institucional">
+      <a class="login-brand" href="index.html">
+        <img src="ipha-logo.png" alt="Logo IPHA">
+        <span><strong>IPHA</strong><small>Enfermería escolar</small></span>
+      </a>
+      <div class="login-welcome">
+        <p class="eyebrow">Sistema de atención escolar</p>
+        <h1>Un espacio de cuidado para nuestra comunidad.</h1>
+        <p>Selecciona tu rol e ingresa la contraseña de demostración correspondiente.</p>
+      </div>
+      <section class="login-demo-credentials" aria-labelledby="demoCredentialsTitle">
+        <h2 id="demoCredentialsTitle">Credenciales ficticias de prueba</h2>
+        <p><strong>Enfermería</strong><code>Contraseña: Demo-Enfermeria-26</code></p>
+        <p><strong>Orientación</strong><code>Contraseña: Demo-Orientacion-26</code></p>
+        <p><strong>Administración</strong><code>Contraseña: Demo-Admin-26</code></p>
       </section>
-      <section class="login-content" aria-labelledby="loginTitle">
-        <div class="login-form-wrap">
-          <p class="eyebrow">Acceso institucional</p>
-          <h2 id="loginTitle">Iniciar sesión</h2>
-          <p class="login-description">
-            Elige el rol que deseas probar e ingresa su contraseña ficticia.
-          </p>
-          <form id="loginForm">
-            <div class="field">
-              <label for="loginRole">Rol</label>
-              <select id="loginRole" name="role" autocomplete="off" required>
-                <option value="" selected disabled>Selecciona tu rol</option>
-                <option value="nurse">Enfermería</option>
-                <option value="guidance">Orientación</option>
-                <option value="admin">Administración</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="loginPassword">Contraseña</label>
-              <input
-                id="loginPassword"
-                name="password"
-                type="password"
-                autocomplete="off"
-                placeholder="Introduce la contraseña de prueba"
-                required
-              />
-            </div>
-            <p class="login-demo-warning">
-              Cuentas ficticias para probar la interfaz. Este acceso local no
-              protege información real.
-            </p>
-            <button class="btn login-submit" type="submit">
-              Iniciar sesión
-            </button>
-            <p
-              class="login-feedback"
-              id="loginFeedback"
-              role="status"
-              hidden
-            ></p>
-          </form>
-          <p class="login-help">
-            ¿Necesitas ayuda con tu cuenta? Contacta con Administración.
-          </p>
-          <p class="login-role-note">
-            El rol de demostración se reconoce automáticamente según la cuenta
-            utilizada.
-          </p>
-        </div>
-      </section>
-    </main>
-  </body>
+      <p class="login-intro-foot">Solo demostración local · No uses datos ni contraseñas reales</p>
+    </section>
+    <section class="login-content" aria-labelledby="loginTitle">
+      <div class="login-form-wrap">
+        <p class="eyebrow">Acceso institucional</p>
+        <h2 id="loginTitle">Iniciar sesión</h2>
+        <p class="login-description">Elige el rol que deseas probar. Al escribir una contraseña reconocida, el rol se selecciona automáticamente.</p>
+        <form id="loginForm">
+          <div class="field">
+            <label for="loginRole">Rol</label>
+            <select id="loginRole" name="role" autocomplete="off" required>
+              <option value="" selected disabled>Selecciona tu rol</option>
+              <option value="nurse">Enfermería</option>
+              <option value="guidance">Orientación</option>
+              <option value="admin">Administración</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="loginPassword">Contraseña</label>
+            <input id="loginPassword" name="password" type="password" autocomplete="off" placeholder="Introduce la contraseña de prueba" required>
+          </div>
+          <p class="login-demo-warning">Cuentas ficticias para probar la interfaz. Este acceso local no protege información real.</p>
+          <button class="btn login-submit" type="submit">Iniciar sesión</button>
+          <p class="login-feedback" id="loginFeedback" role="status" hidden></p>
+        </form>
+        <p class="login-help">¿Necesitas ayuda con tu cuenta? Contacta con Administración.</p>
+        <p class="login-role-note">La contraseña y el rol seleccionado deben corresponder. Si escribes una contraseña de prueba reconocida, el selector se actualizará automáticamente.</p>
+      </div>
+    </section>
+  </main>
+</body>
 </html>

@@ -19,93 +19,15 @@
             falta de disponibilidad.
           </p>
         </div>
-        <span class="status">Datos locales · No seguro</span>
-      </section>
-      <div class="message-layout">
-        <section class="card">
-          <div class="card-heading">
-            <div>
-              <h2>Nueva solicitud de medicamento</h2>
-              <p>
-                Solicita medicamentos sin asociar la solicitud a un estudiante.
-              </p>
-            </div>
-          </div>
-          <form id="messageForm">
-            <div class="fields-grid">
-              <div class="field">
-                <label for="messageRecipient">Destinatario</label
-                ><select class="control" id="messageRecipient" name="to">
-                  <option>Mabel Maldonado</option>
-                  <option>Daniela Asencio</option>
-                  <option>Esmeralda Vicente</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="messageMedication">Medicamento *</label
-                ><input
-                  id="messageMedication"
-                  name="medication"
-                  maxlength="100"
-                  required
-                  placeholder="Ej. Paracetamol"
-                />
-              </div>
-              <div class="field">
-                <label for="messagePresentation">Presentación *</label
-                ><input
-                  id="messagePresentation"
-                  name="presentation"
-                  maxlength="100"
-                  required
-                  placeholder="Ej. Tabletas de 500 mg"
-                />
-              </div>
-              <div class="field">
-                <label for="messageQuantity">Cantidad solicitada *</label
-                ><input
-                  id="messageQuantity"
-                  name="quantityRequested"
-                  type="number"
-                  min="1"
-                  step="1"
-                  required
-                  placeholder="Unidades"
-                />
-              </div>
-              <div class="field full">
-                <label for="messageBody">Nota para Orientación</label
-                ><textarea
-                  id="messageBody"
-                  name="body"
-                  maxlength="500"
-                  placeholder="Información adicional sobre la solicitud"
-                ></textarea>
-              </div>
-            </div>
-            <div class="form-buttons">
-              <button class="btn" type="submit">Enviar solicitud</button>
-            </div>
-          </form>
-          <p class="legend-note">
-            No asocies la solicitud a un estudiante ni incluyas datos
-            personales. Las solicitudes se guardan únicamente en este navegador.
-          </p>
-        </section>
-        <section class="card">
-          <div class="card-heading">
-            <div>
-              <h2>Bandeja de solicitudes</h2>
-              <p>
-                Orientación puede registrar la cantidad entregada o indicar que
-                no hay disponibilidad.
-              </p>
-            </div>
-            <span class="count-pill" id="messageCount">0 solicitudes</span>
-          </div>
-          <div id="messageList" class="message-list"></div>
-        </section>
-      </div>
-    </div>
-  </body>
+        <div class="form-buttons"><button class="btn" type="submit">Enviar solicitud</button></div>
+      </form>
+      <p class="legend-note">No asocies la solicitud a un estudiante ni incluyas datos personales. Las solicitudes se guardan únicamente en este navegador.</p>
+    </section>
+    <section class="card">
+      <div class="card-heading"><div><h2>Bandeja de solicitudes</h2><p>Orientación puede registrar la cantidad entregada o indicar que no hay disponibilidad.</p></div><span class="count-pill" id="messageCount">0 solicitudes</span></div>
+      <div id="messageList" class="message-list"></div>
+    </section>
+  </div>
+</div>
+</body>
 </html>

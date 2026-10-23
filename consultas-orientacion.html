@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Consultas recientes | IPHA Enfermería Escolar</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div id="app" data-page="orientationVisits">
+    <section class="page-heading">
+      <div><p class="eyebrow">Seguimiento de Enfermería</p><h1>Consultas recientes</h1><p>Revisa las últimas consultas registradas y confirma si el estudiante fue despachado.</p></div>
+      <span class="status">Solo Orientación</span>
+    </section>
+    <section class="card orientation-visits-card">
+      <div class="card-heading"><div><h2>Últimas consultas de estudiantes</h2><p>Se muestran hasta 20 consultas, de la más reciente a la más antigua.</p></div><span class="count-pill" id="orientationVisitCount">0 consultas</span></div>
+      <div class="field orientation-visit-search"><label for="orientationVisitSearch">Buscar consulta</label><input class="control" id="orientationVisitSearch" type="search" placeholder="Nombre, curso o motivo"></div>
+      <div class="table-wrap"><table><thead><tr><th>Fecha y hora</th><th>Estudiante</th><th>Curso</th><th>Motivo</th><th>Despachado/a</th></tr></thead><tbody id="orientationVisitRows"></tbody></table></div>
+      <p class="prototype-note">Esta vista solo permite consultar registros recientes y el estado de despacho. La autorización y auditoría definitivas deben implementarse en el servidor.</p>
+    </section>
+  </div>
+</body>
+</html>
