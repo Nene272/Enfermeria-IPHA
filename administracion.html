@@ -1,10 +1,12 @@
 <!doctype html>
 <html lang="es">
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Administración | IPHA Enfermería Escolar</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="api.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -92,4 +94,54 @@
       </p>
     </div>
   </body>
+=======
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Administración | IPHA Enfermería Escolar</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div id="app" data-page="admin">
+    <section class="page-heading">
+      <div><p class="eyebrow">Supervisión del sistema</p><h1>Administración</h1><p>Consulta la actividad general, revisa la auditoría y accede al cierre escolar.</p></div>
+      <div class="page-actions"><a class="btn secondary" href="reportes.html">Ver reportes</a><a class="btn" href="cierre-escolar.html">Cierre escolar</a></div>
+    </section>
+
+    <section class="stats-grid admin-stats" aria-label="Resumen administrativo">
+      <article class="stat-card"><span class="stat-label">Estudiantes activos</span><strong class="stat-value" id="adminStudents">0</strong><small class="stat-note">Registros locales</small></article>
+      <article class="stat-card"><span class="stat-label">Visitas registradas</span><strong class="stat-value" id="adminVisits">0</strong><small class="stat-note">Historial de atención</small></article>
+      <article class="stat-card"><span class="stat-label">Solicitudes pendientes</span><strong class="stat-value" id="adminPendingRequests">0</strong><small class="stat-note">Medicamentos</small></article>
+      <article class="stat-card"><span class="stat-label">Eventos de actividad</span><strong class="stat-value" id="adminEvents">0</strong><small class="stat-note">Auditoría local</small></article>
+      <article class="stat-card"><span class="stat-label">Registros archivados</span><strong class="stat-value" id="adminArchived">0</strong><small class="stat-note">Conservados para revisión</small></article>
+    </section>
+
+    <section class="panel admin-shortcuts">
+      <div class="panel-header"><div><h2>Gestión del sistema</h2><p>Accesos administrativos disponibles.</p></div></div>
+      <div class="quick-actions">
+        <a class="quick-action" href="reportes.html"><span class="quick-icon" aria-hidden="true">▥</span><span><strong>Reportes</strong><small>Consulta cifras agregadas de visitas</small></span><span class="quick-arrow" aria-hidden="true">→</span></a>
+        <a class="quick-action" href="cierre-escolar.html"><span class="quick-icon" aria-hidden="true">⇧</span><span><strong>Cierre escolar</strong><small>Previsualiza promociones y archivo de graduados</small></span><span class="quick-arrow" aria-hidden="true">→</span></a>
+        <a class="quick-action" href="configuracion.html"><span class="quick-icon" aria-hidden="true">⚙</span><span><strong>Configuración</strong><small>Año escolar y contactos de Orientación</small></span><span class="quick-arrow" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="card admin-audit-card">
+      <div class="card-heading"><div><h2>Auditoría de actividad</h2><p>Filtra acciones registradas por rol. El resumen omite nombres y datos médicos.</p></div><span class="count-pill" id="auditResultCount">0 eventos</span></div>
+      <div class="admin-filters">
+        <div class="field"><label for="auditRoleFilter">Rol</label><select class="control" id="auditRoleFilter"><option value="">Todos los roles</option><option>Enfermería</option><option>Orientación</option><option>Administración</option></select></div>
+        <div class="field"><label for="auditActionFilter">Acción</label><select class="control" id="auditActionFilter"><option value="">Todas las acciones</option></select></div>
+        <div class="field"><label for="auditSearch">Buscar en actividad</label><input class="control" id="auditSearch" type="search" placeholder="Fecha, rol o acción"></div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>Fecha</th><th>Rol</th><th>Acción</th><th>Resumen</th></tr></thead><tbody id="auditRows"></tbody></table></div>
+      <p class="prototype-note">Demostración local: la auditoría se guarda en este navegador y no es un registro seguro ni centralizado. Con credenciales compartidas se identifica el rol, no a la persona.</p>
+    </section>
+
+    <section class="card admin-archive-card">
+      <div class="card-heading"><div><h2>Archivo de estudiantes</h2><p>Los expedientes archivados se conservan; no se eliminan permanentemente.</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Estudiante</th><th>Curso y mención técnica</th><th>Fecha de archivo</th><th>Motivo / estado</th></tr></thead><tbody id="archiveRows"></tbody></table></div>
+    </section>
+  </div>
+</body>
+>>>>>>> 77285e80a41635bd27938a636e6f2c7efbbc26b7
 </html>

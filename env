@@ -1,0 +1,12 @@
+# Copiar este archivo como ".env" (sin .example) y llenar los valores reales. NUNCA subir el .env a GitHub.
+ANTHROPIC_API_KEY=
+AI_MODEL=claude-sonnet-5-5
+
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_NAME=enfermeria_escolar
+DB_USER=
+DB_PASSWORD=
+
+# Firma de las cookies de sesión. Generar una con:  python -c "import secrets; print(secrets.token_hex(32))"
+FLASK_SECRET_KEY=41f6fe4f72c8347f72e84187260bb46258763e8010e293f8b5c31e79c05c2cb6
