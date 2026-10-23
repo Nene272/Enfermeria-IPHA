@@ -260,3 +260,43 @@ GROUP BY e.id;
 -- Verificar las tablas creadas.
 SHOW TABLES;
 
+INSERT INTO estudiantes (nombre, apellido, curso, grado, fecha_nacimiento, telefono_contacto, nombre_tutor, estado) VALUES
+    ('Carlos', 'Pérez', 'Informatica', '4to', '2009-05-12', '809-555-0192', 'María Pérez', 'activo'),
+    ('Ana', 'Gómez', 'Mecatronica', '5to', '2008-08-23', '809-555-8833', 'Juan Gómez', 'activo'),
+    ('José', 'Martínez', 'Electricidad', '6to', '2007-02-15', '809-555-4421', 'Carmen Rosa', 'activo'),
+    ('Laura', 'Rodríguez', 'Contabilidad', '4to', '2009-11-04', '809-555-9988', 'Pedro Rodríguez', 'activo'),
+    ('Miguel', 'Díaz', 'Refrigeracion', '5to', '2008-01-30', '809-555-3322', 'Lucía Díaz', 'activo');
+    
+INSERT INTO datos_salud_estudiante (id_estudiante, alergias, medicamentos_relevantes, condiciones_relevantes, detalle_necesidad, prioridad, observaciones, actualizado_por_rol) VALUES
+    (1, 'Penicilina', 'Ninguno', 'Asma leve', 'Uso de inhalador en caso de crisis', 'Media', 'Trajo autorización médica firmada.', 'enfermeria'),
+    (2, 'Ninguna', 'Antihistamínicos', 'Rinitis alérgica', 'Estornudos frecuentes con polvo', 'Leve', 'Controlar exposición a áreas con polvo.', 'orientacion'),
+    (3, 'Mariscos', 'EpiPen (si aplica)', 'Alergia severa', 'Precaución con alimentos externos', 'Grave', 'Padres informados sobre protocolos de emergencia.', 'enfermeria'),
+    (4, 'Ninguna', 'Ninguno', 'Ninguna', 'Ninguna', 'Leve', 'Estudiante sin historial complejo.', 'administracion'),
+    (5, 'Polen', 'Gotas oftálmicas', 'Conjuntivitis alérgica estacional', 'Uso de lentes de sol al aire libre', 'Media', 'Revisión periódica.', 'enfermeria');
+    
+    INSERT INTO historial_estudiantil (id_estudiante, tipo, campo_afectado, valor_anterior, valor_nuevo, descripcion, registrado_por_rol) VALUES
+    (1, 'cambio_prioridad', 'prioridad', 'Leve', 'Media', 'Se actualizó tras presentar crisis de asma leve en el taller.', 'enfermeria'),
+    (3, 'nota', NULL, NULL, NULL, 'Se recordó al estudiante la prohibición de consumir alimentos con mariscos en la cafetería.', 'orientacion');
+    
+    INSERT INTO visitas (id_estudiante, fecha_visita, motivo, atencion_realizada, observaciones, despachado, registrada_por_rol) VALUES
+    (1, '2026-05-10 09:30:00', 'Dolor de cabeza leve y mareo', 'Se tomó la presión arterial (normal), reposo de 15 minutos.', 'Se le dio agua y mejoró notablemente.', TRUE, 'enfermeria'),
+    (2, '2026-05-11 10:15:00', 'Ataque de estornudos por polvo en el taller', 'Aplicación de gotas y lavado nasal.', 'Sin mayores complicaciones, regresó a clases.', TRUE, 'enfermeria'),
+    (3, '2026-05-12 11:00:00', 'Corte leve en un dedo manipulando herramientas', 'Limpieza con solución salina, aplicación de antiséptico y curita.', 'Curación exitosa.', TRUE, 'enfermeria'),
+    (4, '2026-05-12 14:20:00', 'Dolor estomacal', 'Reposo y infarto de manzanilla.', 'Fue retirada por su tutor más tarde.', FALSE, 'enfermeria');
+    
+    INSERT INTO solicitudes_medicamentos (id_orientadora, medicamento, cantidad_solicitada, detalle_solicitud, estado, solicitada_por_rol, respondida_por_rol, respuesta, respondida_en) VALUES
+    (1, 'Paracetamol 500mg', '2 cajas', 'Necesario para botiquín de orientación ante dolores comunes de estudiantes.', 'gestionada', 'orientacion', 'enfermeria', 'Entregado en la oficina de enfermería.', '2026-05-01 10:00:00'),
+    (2, 'Ibuprofeno 400mg', '1 caja', 'Solicitado para emergencias de dolor menstrual en alumnas.', 'pendiente', 'orientacion', NULL, NULL, NULL);
+    
+    INSERT INTO cierres_escolares (anio_escolar, estado, creado_por_rol, confirmado_por_rol, confirmado_en) VALUES
+    ('2025-2026', 'confirmado', 'administracion', 'administracion', '2026-06-25 08:00:00');
+    
+    INSERT INTO historial_promociones (id_cierre, id_estudiante, grado_anterior, grado_nuevo, accion) VALUES
+    (1, 1, '4to', '5to', 'promovido'),
+    (1, 2, '5to', '6to', 'promovido'),
+    (1, 3, '6to', NULL, 'graduado_archivado');
+    
+    INSERT INTO registros_auditoria (rol_actor, accion, entidad, id_entidad, resumen) VALUES
+    ('enfermeria', 'CREAR', 'estudiantes', 1, 'Registro inicial del estudiante Carlos Pérez.'),
+    ('orientacion', 'CREAR', 'solicitudes_medicamentos', 1, 'Solicitud de Paracetamol para botiquín auxiliar.'),
+    ('administracion', 'CONFIRMAR', 'cierres_escolares', 1, 'Confirmación del proceso de cierre escolar período 2025-2026.');
