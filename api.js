@@ -1,6 +1,4 @@
-// api.js — reemplaza el localStorage por el servidor Flask (que guarda en MySQL).
-// app.js sigue usando read()/write() como antes; aquí se traducen a llamadas /api/...
-// Debe cargarse ANTES de app.js.
+
 (() => {
   const K = { students: 'ipha-students-v2', visits: 'ipha-visits-v2', messages: 'ipha-messages-v2', audit: 'ipha-audit-v2', archive: 'ipha-archive-v2' };
   const CLIENT_AUDIT = ['Consultó mensajes', 'Consultó visitas', 'Usó la IA'];   // el resto lo registra el servidor al guardar

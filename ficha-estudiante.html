@@ -1,155 +1,47 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ficha del estudiante | IPHA Enfermería Escolar</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="api.js" defer></script>
-    <script src="app.js" defer></script>
-  </head>
-  <body data-page="ficha">
-    <div class="shell">
-      <aside class="sidebar" id="sidebar">
-        <a class="brand" href="index.html"
-          ><img class="brand-logo" src="ipha-logo.png" alt="Escudo IPHA" /><span
-            class="brand-name"
-            >IPHA<span>Enfermería escolar</span></span
-          ></a
-        >
-        <nav class="nav">
-          <a class="nav-link" data-nav="inicio" href="index.html"
-            ><span class="nav-icon">⌂</span>Inicio</a
-          >
-          <a
-            class="nav-link"
-            data-nav="consultar"
-            href="consultar-estudiantes.html"
-            ><span class="nav-icon">♧</span>Estudiantes<span class="nav-arrow"
-              >›</span
-            ></a
-          >
-          <a
-            class="nav-link"
-            data-nav="registrar"
-            href="registrar-estudiante.html"
-            ><span class="nav-icon">＋</span>Registrar estudiante</a
-          >
-          <a class="nav-link" data-nav="configuracion" href="configuracion.html"
-            ><span class="nav-icon">⚙</span>Configuración<span class="nav-arrow"
-              >›</span
-            ></a
-          >
-        </nav>
-        <div class="sidebar-bottom">
-          <div class="profile">
-            <span class="avatar">CP</span>
-            <div><strong>Carmen Peña</strong><span>Enfermería</span></div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Editar estudiante | IPHA Enfermería Escolar</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<div id="app" data-page="edit">
+  <section class="page-heading">
+    <div><p class="eyebrow">Directorio escolar / Actualizar registro</p><h1>Editar estudiante</h1><p>Actualiza los datos del estudiante seleccionado.</p></div>
+    <a class="btn secondary" href="consultar-estudiantes.html">← Volver al directorio</a>
+  </section>
+  <form id="studentForm">
+    <div class="form-layout">
+      <div>
+        <section class="form-section">
+          <h2 class="section-heading"><i class="section-marker"></i>Datos del estudiante</h2>
+          <div class="fields-grid">
+            <div class="field full"><label for="name">Nombre completo *</label><input id="name" name="name" required></div>
+            <div class="field"><label for="grade">Curso *</label><select id="grade" name="grade" required><option>4.º Secundaria</option><option>5.º Secundaria</option><option>6.º Secundaria</option></select></div>
+            <div class="field"><label for="mention">Mención técnica *</label><select id="mention" name="mention" required><option value="">Selecciona una mención técnica</option></select></div>
+            <div class="field"><label for="age">Edad *</label><input id="age" name="age" type="number" min="3" max="25" required></div>
+            <div class="field"><label for="status">Estado del registro</label><select id="status" name="status"><option>Al día</option><option>Revisar</option><option>Pendiente</option></select></div>
+            <div class="field"><label for="priority">Prioridad de atención</label><select id="priority" name="priority"><option value="">Sin clasificar</option></select><small>Leve, media o grave; es orientativa, no un diagnóstico.</small></div>
           </div>
-        </div>
-      </aside>
-      <main class="main">
-        <header class="topbar">
-          <div style="display: flex; align-items: center; gap: 12px">
-            <button class="mobile-menu" id="menuButton" aria-label="Abrir menú">
-              ☰
-            </button>
-            <div class="crumb" id="breadcrumb">
-              Estudiantes › <strong>Ficha del estudiante</strong>
-            </div>
+        </section>
+        <section class="form-section">
+          <h2 class="section-heading"><i class="section-marker orange"></i>Contacto y observaciones</h2>
+          <div class="fields-grid">
+            <div class="field"><label for="guardian">Tutor responsable *</label><input id="guardian" name="guardian" required></div>
+            <div class="field"><label for="phone">Teléfono *</label><input id="phone" name="phone" type="tel" required></div>
+            <div class="field"><label for="blood">Grupo sanguíneo</label><input id="blood" name="blood"></div>
+            <div class="field"><label for="allergies">Alergias conocidas</label><input id="allergies" name="allergies"></div>
+            <div class="field full"><label for="notes">Observaciones</label><textarea id="notes" name="notes"></textarea></div>
           </div>
-          <div class="top-actions">
-            <span class="today"
-              >Año escolar 2026–2027 · Viernes, 16 de octubre de 2026</span
-            >
-          </div>
-        </header>
-        <div class="content">
-          <div class="page-head">
-            <div>
-              <div class="eyebrow">Ficha de salud</div>
-              <h1>Ficha del estudiante</h1>
-              <p>Consulta la información escolar y de salud.</p>
-            </div>
-            <a class="btn secondary" href="consultar-estudiantes.html"
-              >← Volver al directorio</a
-            >
-          </div>
-          <section class="card">
-            <div class="detail-top">
-              <span class="avatar" id="studentAvatar">VR</span>
-              <div>
-                <h2 id="studentName">Valentina Rojas</h2>
-                <p>
-                  <span id="studentCode">IPHA-2024-001</span> ·
-                  <span id="studentGrade">3.º Primaria</span> ·
-                  <span id="studentAge">8</span> años
-                </p>
-              </div>
-              <div class="detail-actions">
-                <a
-                  class="btn secondary"
-                  id="editStudent"
-                  href="editar-estudiante.html"
-                  >✎ Editar ficha</a
-                >
-              </div>
-            </div>
-          </section>
-          <section class="card">
-            <div class="section-block">
-              <h2 class="section-title">Datos personales</h2>
-              <div class="detail-grid">
-                <div class="detail-item">
-                  <small>Nombre completo</small
-                  ><strong id="detailName">Valentina Rojas</strong>
-                </div>
-                <div class="detail-item">
-                  <small>Curso</small
-                  ><strong id="detailGrade">3.º Primaria</strong>
-                </div>
-                <div class="detail-item">
-                  <small>Edad</small><strong id="detailAge">8 años</strong>
-                </div>
-                <div class="detail-item">
-                  <small>Estado de la ficha</small
-                  ><strong id="detailStatus">Al día</strong>
-                </div>
-              </div>
-            </div>
-            <div class="section-block">
-              <h2 class="section-title">Contacto de emergencia</h2>
-              <div class="detail-grid">
-                <div class="detail-item">
-                  <small>Tutor responsable</small
-                  ><strong id="detailGuardian">María Rojas</strong>
-                </div>
-                <div class="detail-item">
-                  <small>Teléfono</small
-                  ><strong id="detailPhone">701 234 567</strong>
-                </div>
-              </div>
-            </div>
-            <div class="section-block">
-              <h2 class="section-title">Información de salud</h2>
-              <div class="detail-grid">
-                <div class="detail-item">
-                  <small>Grupo sanguíneo</small
-                  ><strong id="detailBlood">O+</strong>
-                </div>
-                <div class="detail-item">
-                  <small>Alergias conocidas</small
-                  ><strong id="detailAllergies">Ninguna</strong>
-                </div>
-                <div class="detail-item">
-                  <small>Observaciones</small
-                  ><strong id="detailNotes">Control anual completado.</strong>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-      </main>
+          <div class="form-buttons"><a class="btn secondary" href="consultar-estudiantes.html">Cancelar</a><button class="btn" type="submit">Guardar cambios</button></div>
+        </section>
+      </div>
+      <aside class="side-note"><h3>Edición local</h3><p>Los cambios se guardan localmente y se reflejan en el directorio de este navegador.</p><p>La prioridad es una categoría orientativa de atención y no sustituye una valoración clínica.</p><p>La edición de registros reales requiere autorización del servidor y auditoría.</p></aside>
     </div>
-  </body>
+  </form>
+</div>
+</body>
 </html>

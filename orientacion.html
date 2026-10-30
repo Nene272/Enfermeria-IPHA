@@ -1,38 +1,28 @@
 <!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Orientación | IPHA Enfermería Escolar</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
-</head>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mensajes | IPHA Enfermería Escolar</title><link rel="stylesheet" href="styles.css"><script src="app.js" defer></script></head>
 <body>
-  <div id="app" data-page="orientation">
-    <section class="page-heading">
-      <div><p class="eyebrow">Coordinación con Enfermería</p><h1>Solicitudes de medicamentos</h1><p>Revisa las solicitudes recibidas y registra una respuesta para Enfermería.</p></div>
-      <span class="status">Bandeja de Orientación</span>
-    </section>
-
-    <div>
-      <section class="stats-grid three-stats orientation-stats" aria-label="Resumen de solicitudes">
-        <article class="stat-card"><span class="stat-label">Pendientes</span><strong class="stat-value" id="orientationPending">0</strong><small class="stat-note">Requieren respuesta</small></article>
-        <article class="stat-card"><span class="stat-label">Atendidas</span><strong class="stat-value" id="orientationAttended">0</strong><small class="stat-note">Medicamento entregado</small></article>
-        <article class="stat-card"><span class="stat-label">No disponibles</span><strong class="stat-value" id="orientationUnavailable">0</strong><small class="stat-note">Sin entrega registrada</small></article>
-      </section>
-
-      <section class="card orientation-inbox">
-        <div class="card-heading"><div><h2>Bandeja de solicitudes</h2><p>Actualiza el resultado y, si corresponde, la cantidad entregada.</p></div><span class="count-pill" id="orientationCount">0 solicitudes</span></div>
-        <div class="admin-filters orientation-filters">
-          <div class="field"><label for="orientationStatusFilter">Estado</label><select class="control" id="orientationStatusFilter"><option value="">Todos los estados</option><option>Pendiente</option><option>Atendida</option><option>No disponible</option></select></div>
-          <div class="field"><label for="orientationContactFilter">Destinataria</label><select class="control" id="orientationContactFilter"><option value="">Todas las orientadoras</option></select></div>
-          <div class="field"><label for="orientationSearch">Buscar solicitud</label><input class="control" id="orientationSearch" type="search" placeholder="Medicamento o fecha"></div>
+<div id="app" data-page="messages">
+  <section class="page-heading"><div><p class="eyebrow">Coordinación escolar</p><h1>Mensajes y medicamentos</h1><p>Enfermería solicita medicamentos; Orientación registra la entrega o falta de disponibilidad.</p></div><span class="status">Datos locales · No seguro</span></section>
+  <div class="message-layout">
+    <section class="card">
+      <div class="card-heading"><div><h2>Nueva solicitud de medicamento</h2><p>Solicita medicamentos sin asociar la solicitud a un estudiante.</p></div></div>
+      <form id="messageForm">
+        <div class="fields-grid">
+          <div class="field"><label for="messageRecipient">Destinatario</label><select class="control" id="messageRecipient" name="to"><option>Mabel Maldonado</option><option>Daniela Asencio</option><option>Esmeralda Vicente</option></select></div>
+          <div class="field"><label for="messageMedication">Medicamento *</label><input id="messageMedication" name="medication" maxlength="100" required placeholder="Ej. Paracetamol"></div>
+          <div class="field"><label for="messagePresentation">Presentación *</label><input id="messagePresentation" name="presentation" maxlength="100" required placeholder="Ej. Tabletas de 500 mg"></div>
+          <div class="field"><label for="messageQuantity">Cantidad solicitada *</label><input id="messageQuantity" name="quantityRequested" type="number" min="1" step="1" required placeholder="Unidades"></div>
+          <div class="field full"><label for="messageBody">Nota para Orientación</label><textarea id="messageBody" name="body" maxlength="500" placeholder="Información adicional sobre la solicitud"></textarea></div>
         </div>
-        <div class="message-list orientation-request-list" id="orientationList"></div>
-        <div class="info-banner orientation-privacy"><span class="info-icon" aria-hidden="true">i</span><span><strong>Solicitudes sin estudiante asociado</strong>Usa este espacio únicamente para coordinar medicamentos.</span></div>
-        <p class="prototype-note">Las solicitudes se guardan localmente en este navegador. La recepción segura requiere endpoints y autorización del servidor.</p>
-      </section>
-    </div>
+        <div class="form-buttons"><button class="btn" type="submit">Enviar solicitud</button></div>
+      </form>
+      <p class="legend-note">No asocies la solicitud a un estudiante ni incluyas datos personales. Las solicitudes se guardan únicamente en este navegador.</p>
+    </section>
+    <section class="card">
+      <div class="card-heading"><div><h2>Bandeja de solicitudes</h2><p>Orientación puede registrar la cantidad entregada o indicar que no hay disponibilidad.</p></div><span class="count-pill" id="messageCount">0 solicitudes</span></div>
+      <div id="messageList" class="message-list"></div>
+    </section>
   </div>
+</div>
 </body>
 </html>

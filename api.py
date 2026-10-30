@@ -1,8 +1,4 @@
-"""API de la enfermería escolar: login con sesión (cookie) + lectura/escritura en MySQL.
 
-Regla de oro: el navegador NUNCA decide quién es el usuario ni qué puede hacer.
-Todo se valida aquí, con el rol que viene guardado en la cookie de sesión firmada.
-"""
 import time
 from datetime import date, datetime
 from functools import wraps

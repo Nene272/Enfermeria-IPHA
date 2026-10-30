@@ -1,41 +1,10 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS
-import mysql.connector
+"""Compatibilidad: el servidor real es servidor.py (MySQL + IA + páginas).
 
-app = Flask(__name__)
-CORS(app)  # permite que el frontend llame a la API
-
-def get_db():
-    return mysql.connector.connect(
-        host="localhost",
-        user="tu_usuario",
-        password="tu_password",
-        database="tu_base_de_datos"
-    )
-
-@app.route("/api/usuarios", methods=["GET"])
-def listar_usuarios():
-    db = get_db()
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT id, nombre, email FROM usuarios")
-    datos = cursor.fetchall()
-    cursor.close()
-    db.close()
-    return jsonify(datos)
-
-@app.route("/api/usuarios", methods=["POST"])
-def crear_usuario():
-    data = request.get_json()
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute(
-        "INSERT INTO usuarios (nombre, email) VALUES (%s, %s)",
-        (data["nombre"], data["email"])
-    )
-    db.commit()
-    cursor.close()
-    db.close()
-    return jsonify({"mensaje": "Usuario creado"}), 201
+Este archivo antes era un ejemplo suelto (tabla "usuarios" que no existe y contraseña escrita en el código).
+Ahora solo arranca servidor.py, así `python app.py` y `python servidor.py` hacen lo mismo.
+"""
+import runpy
+import os
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    runpy.run_path(os.path.join(os.path.dirname(os.path.abspath(__file__)), "servidor.py"), run_name="__main__")

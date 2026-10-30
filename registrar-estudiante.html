@@ -1,192 +1,38 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Registrar estudiante | IPHA Enfermería Escolar</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="api.js" defer></script>
-    <script src="app.js" defer></script>
-  </head>
-  <body data-page="registrar">
-    <div class="shell">
-      <aside class="sidebar" id="sidebar">
-        <a class="brand" href="index.html"
-          ><img class="brand-logo" src="ipha-logo.png" alt="Escudo IPHA" /><span
-            class="brand-name"
-            >IPHA<span>Enfermería escolar</span></span
-          ></a
-        >
-        <nav class="nav">
-          <a class="nav-link" data-nav="inicio" href="index.html"
-            ><span class="nav-icon">⌂</span>Inicio</a
-          >
-          <a
-            class="nav-link"
-            data-nav="consultar"
-            href="consultar-estudiantes.html"
-            ><span class="nav-icon">♧</span>Estudiantes<span class="nav-arrow"
-              >›</span
-            ></a
-          >
-          <a
-            class="nav-link"
-            data-nav="registrar"
-            href="registrar-estudiante.html"
-            ><span class="nav-icon">＋</span>Registrar estudiante</a
-          >
-          <a class="nav-link" data-nav="configuracion" href="configuracion.html"
-            ><span class="nav-icon">⚙</span>Configuración<span class="nav-arrow"
-              >›</span
-            ></a
-          >
-        </nav>
-        <div class="sidebar-bottom">
-          <div class="profile">
-            <span class="avatar">CP</span>
-            <div><strong>Carmen Peña</strong><span>Enfermería</span></div>
-          </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Orientación | IPHA Enfermería Escolar</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div id="app" data-page="orientation">
+    <section class="page-heading">
+      <div><p class="eyebrow">Coordinación con Enfermería</p><h1>Solicitudes de medicamentos</h1><p>Revisa las solicitudes recibidas y registra una respuesta para Enfermería.</p></div>
+      <span class="status">Bandeja de Orientación</span>
+    </section>
+
+    <div>
+      <section class="stats-grid three-stats orientation-stats" aria-label="Resumen de solicitudes">
+        <article class="stat-card"><span class="stat-label">Pendientes</span><strong class="stat-value" id="orientationPending">0</strong><small class="stat-note">Requieren respuesta</small></article>
+        <article class="stat-card"><span class="stat-label">Atendidas</span><strong class="stat-value" id="orientationAttended">0</strong><small class="stat-note">Medicamento entregado</small></article>
+        <article class="stat-card"><span class="stat-label">No disponibles</span><strong class="stat-value" id="orientationUnavailable">0</strong><small class="stat-note">Sin entrega registrada</small></article>
+      </section>
+
+      <section class="card orientation-inbox">
+        <div class="card-heading"><div><h2>Bandeja de solicitudes</h2><p>Actualiza el resultado y, si corresponde, la cantidad entregada.</p></div><span class="count-pill" id="orientationCount">0 solicitudes</span></div>
+        <div class="admin-filters orientation-filters">
+          <div class="field"><label for="orientationStatusFilter">Estado</label><select class="control" id="orientationStatusFilter"><option value="">Todos los estados</option><option>Pendiente</option><option>Atendida</option><option>No disponible</option></select></div>
+          <div class="field"><label for="orientationContactFilter">Destinataria</label><select class="control" id="orientationContactFilter"><option value="">Todas las orientadoras</option></select></div>
+          <div class="field"><label for="orientationSearch">Buscar solicitud</label><input class="control" id="orientationSearch" type="search" placeholder="Medicamento o fecha"></div>
         </div>
-      </aside>
-      <main class="main">
-        <header class="topbar">
-          <div style="display: flex; align-items: center; gap: 12px">
-            <button class="mobile-menu" id="menuButton" aria-label="Abrir menú">
-              ☰
-            </button>
-            <div class="crumb" id="breadcrumb">
-              Estudiantes › <strong>Registrar estudiante</strong>
-            </div>
-          </div>
-          <div class="top-actions">
-            <span class="today"
-              >Año escolar 2026–2027 · Viernes, 16 de octubre de 2026</span
-            >
-          </div>
-        </header>
-        <div class="content">
-          <div class="page-head">
-            <div>
-              <div class="eyebrow">Nueva ficha</div>
-              <h1>Registrar estudiante</h1>
-              <p>Completa los datos básicos para crear una ficha escolar.</p>
-            </div>
-          </div>
-          <form class="card" id="studentForm">
-            <div class="section-block">
-              <h2 class="section-title">Información del estudiante</h2>
-              <div class="form-grid">
-                <div class="field">
-                  <label for="name">Nombre completo *</label
-                  ><input
-                    id="name"
-                    name="name"
-                    required
-                    placeholder="Nombre y apellidos"
-                  />
-                </div>
-                <div class="field">
-                  <label for="grade">Curso *</label
-                  ><select id="grade" name="grade" required>
-                    <option value="">Selecciona un curso</option>
-                    <option>1.º Primaria</option>
-                    <option>2.º Primaria</option>
-                    <option>3.º Primaria</option>
-                    <option>4.º Primaria</option>
-                    <option>5.º Primaria</option>
-                    <option>6.º Primaria</option>
-                    <option>1.º Secundaria</option>
-                    <option>2.º Secundaria</option>
-                    <option>3.º Secundaria</option>
-                    <option>4.º Secundaria</option>
-                    <option>5.º Secundaria</option>
-                    <option>6.º Secundaria</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="age">Edad *</label
-                  ><input
-                    id="age"
-                    name="age"
-                    type="number"
-                    min="3"
-                    max="25"
-                    required
-                    placeholder="Edad en años"
-                  />
-                </div>
-                <div class="field">
-                  <label for="status">Estado de la ficha</label
-                  ><select id="status" name="status">
-                    <option>Al día</option>
-                    <option>Revisar</option>
-                    <option>Pendiente</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="section-block">
-              <h2 class="section-title">Contacto y salud</h2>
-              <div class="form-grid">
-                <div class="field">
-                  <label for="guardian">Tutor o contacto *</label
-                  ><input
-                    id="guardian"
-                    name="guardian"
-                    required
-                    placeholder="Nombre del tutor"
-                  />
-                </div>
-                <div class="field">
-                  <label for="phone">Teléfono de contacto *</label
-                  ><input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    required
-                    placeholder="Ej. 701 234 567"
-                  />
-                </div>
-                <div class="field">
-                  <label for="blood">Grupo sanguíneo</label
-                  ><select id="blood" name="blood">
-                    <option value="">Sin especificar</option>
-                    <option>O+</option>
-                    <option>O-</option>
-                    <option>A+</option>
-                    <option>A-</option>
-                    <option>B+</option>
-                    <option>B-</option>
-                    <option>AB+</option>
-                    <option>AB-</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="allergies">Alergias</label
-                  ><input
-                    id="allergies"
-                    name="allergies"
-                    placeholder="Alergias conocidas"
-                  />
-                </div>
-                <div class="field full">
-                  <label for="notes">Observaciones de enfermería</label
-                  ><textarea
-                    id="notes"
-                    name="notes"
-                    placeholder="Notas relevantes para el seguimiento"
-                  ></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="form-actions">
-              <a class="btn secondary" href="consultar-estudiantes.html"
-                >Cancelar</a
-              ><button class="btn" type="submit">Registrar estudiante</button>
-            </div>
-          </form>
-        </div>
-      </main>
+        <div class="message-list orientation-request-list" id="orientationList"></div>
+        <div class="info-banner orientation-privacy"><span class="info-icon" aria-hidden="true">i</span><span><strong>Solicitudes sin estudiante asociado</strong>Usa este espacio únicamente para coordinar medicamentos.</span></div>
+        <p class="prototype-note">Las solicitudes se guardan localmente en este navegador. La recepción segura requiere endpoints y autorización del servidor.</p>
+      </section>
     </div>
-  </body>
+  </div>
+</body>
 </html>
