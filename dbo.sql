@@ -308,14 +308,14 @@ DROP VIEW IF EXISTS vista_visitas_por_estudiante;
 -- Estudiantes: matrícula, nombre completo, edad, estado del registro...
 ALTER TABLE estudiantes
     ADD COLUMN matricula VARCHAR(30) NULL AFTER id,
-    ADD COLUMN nombre_completo VARCHAR(200) NULL AFTER matricula,
+    ADD COLUMN nombre VARCHAR(200) NULL AFTER matricula,
     ADD COLUMN edad TINYINT UNSIGNED NULL,
     ADD COLUMN estado_registro ENUM('Al día', 'Revisar', 'Pendiente') NOT NULL DEFAULT 'Pendiente',
     ADD COLUMN motivo_archivo VARCHAR(80) NULL,
     MODIFY curso ENUM('Mecatronica','Informatica','Electricidad','Refrigeracion','Contabilidad','Mecanica') NULL,
     MODIFY telefono_contacto VARCHAR(30) NULL;
 
-UPDATE estudiantes SET nombre_completo = TRIM(CONCAT(nombre, ' ', apellido));
+UPDATE estudiantes SET nombre = TRIM(CONCAT(nombre, ' ', apellido));
 UPDATE estudiantes SET matricula = CONCAT('SIN-MAT-', id) WHERE matricula IS NULL;  -- solo si ya había filas
 ALTER TABLE datos_salud_estudiante ADD COLUMN grupo_sanguineo VARCHAR(12) NULL AFTER id_estudiante;
 

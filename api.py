@@ -33,7 +33,7 @@ MSG_STATUS_FE = {"pendiente": "Pendiente", "recibida": "Pendiente", "gestionada"
 # Acciones que el navegador puede registrar por su cuenta (las demás las registra el servidor al guardar).
 CLIENT_AUDIT_ACTIONS = {"Consultó mensajes", "Consultó visitas", "Usó la IA"}
 
-FIELD_LABELS = {"nombre_completo": "Nombre", "grado": "Curso", "curso": "Mención técnica", "edad": "Edad",
+FIELD_LABELS = {"nombre": "Nombre", "grado": "Curso", "curso": "Mención técnica", "edad": "Edad",
                 "estado_registro": "Estado del registro", "prioridad": "Prioridad de atención",
                 "nombre_tutor": "Tutor responsable", "telefono_contacto": "Teléfono del tutor",
                 "grupo_sanguineo": "Grupo sanguíneo", "alergias": "Alergias conocidas", "observaciones": "Observaciones"}
@@ -187,7 +187,7 @@ def clean_student(data):
     if status not in REG_STATUS or (priority and priority not in PRIORITIES):
         raise ApiError("Estado o prioridad no válidos.")
     return {
-        "nombre_completo": name, "grado": grado, "curso": MENTION_DB.get(mention), "edad": age,
+        "nombre": name, "grado": grado, "curso": MENTION_DB.get(mention), "edad": age,
         "estado_registro": status, "nombre_tutor": none_if_empty(clip(data.get("guardian"), 150)),
         "telefono_contacto": none_if_empty(clip(data.get("phone"), 30)),
         "grupo_sanguineo": none_if_empty(clip(data.get("blood"), 12)),
@@ -197,7 +197,7 @@ def clean_student(data):
 
 
 STUDENT_SELECT = """
-    SELECT e.id AS pk, e.matricula, e.nombre_completo, e.grado, e.curso, e.edad, e.estado_registro,
+    SELECT e.id AS pk, e.matricula, e.nombre, e.grado, e.curso, e.edad, e.estado_registro,
            e.nombre_tutor, e.telefono_contacto, e.estado, e.fecha_archivado, e.motivo_archivo,
            s.grupo_sanguineo, s.alergias, s.prioridad, s.observaciones
     FROM estudiantes e LEFT JOIN datos_salud_estudiante s ON s.id_estudiante = e.id
@@ -205,7 +205,7 @@ STUDENT_SELECT = """
 
 
 def student_out(row, notes, full):
-    base = {"id": row["matricula"], "name": row["nombre_completo"], "grade": GRADE_FE.get(row["grado"], ""),
+    base = {"id": row["matricula"], "name": row["nombre"], "grade": GRADE_FE.get(row["grado"], ""),
             "mention": MENTION_FE.get(row["curso"], ""), "age": row["edad"], "status": row["estado_registro"],
             "priority": row["prioridad"] or ""}
     if not full:        # Orientación no ve datos de contacto ni de salud
@@ -276,7 +276,7 @@ def datos():
             audit_rows = [{"date": fmt_dt(a["registrado_en"]), "role": ROLE_LABEL[a["rol_actor"]], "action": a["accion"],
                            "detail": a["resumen"] or ""} for a in cur.fetchall()]
             cur.execute("SELECT * FROM estudiantes WHERE estado IN ('archivado','graduado') ORDER BY fecha_archivado DESC, id DESC")
-            archive = [{"name": a["nombre_completo"], "grade": GRADE_FE.get(a["grado"], ""), "mention": MENTION_FE.get(a["curso"], ""),
+            archive = [{"name": a["nombre"], "grade": GRADE_FE.get(a["grado"], ""), "mention": MENTION_FE.get(a["curso"], ""),
                         "archivedAt": fmt_d(a["fecha_archivado"]), "archiveStatus": a["motivo_archivo"] or ""} for a in cur.fetchall()]
     return jsonify(role=ROLE_FE[rol], students=students, visits=visits, messages=messages, audit=audit_rows, archive=archive)
 
@@ -300,12 +300,12 @@ def crear_estudiante():
     c = clean_student(data)
     try:
         with db.cursor() as cur:
-            cur.execute("""INSERT INTO estudiantes (matricula, nombre_completo, curso, grado, edad, nombre_tutor, telefono_contacto, estado_registro)
+            cur.execute("""INSERT INTO estudiantes (matricula, nombre, curso, grado, edad, nombre_tutor, telefono_contacto, estado_registro)
                            VALUES (%s,%s,%s,%s,%s,%s,%s,%s)""",
-                        (matricula, c["nombre_completo"], c["curso"], c["grado"], c["edad"], c["nombre_tutor"], c["telefono_contacto"], c["estado_registro"]))
+                        (matricula, c["nombre"], c["curso"], c["grado"], c["edad"], c["nombre_tutor"], c["telefono_contacto"], c["estado_registro"]))
             pk = cur.lastrowid
             _insert_health(cur, pk, c, rol)
-        audit(db, rol, "Agregó estudiante al directorio", "estudiante", pk, f'{c["nombre_completo"]} · {matricula}')
+        audit(db, rol, "Agregó estudiante al directorio", "estudiante", pk, f'{c["nombre"]} · {matricula}')
         db.commit()
     except pymysql.err.IntegrityError as error:
         db.rollback()
@@ -325,9 +325,9 @@ def actualizar_estudiante(matricula):
         old = get_active_student(cur, matricula, lock=True)
         changed = [col for col in FIELD_LABELS if none_if_empty(old[col]) != c[col]]
         if changed:
-            cur.execute("""UPDATE estudiantes SET nombre_completo=%s, curso=%s, grado=%s, edad=%s, nombre_tutor=%s,
+            cur.execute("""UPDATE estudiantes SET nombre=%s, curso=%s, grado=%s, edad=%s, nombre_tutor=%s,
                            telefono_contacto=%s, estado_registro=%s WHERE id=%s""",
-                        (c["nombre_completo"], c["curso"], c["grado"], c["edad"], c["nombre_tutor"], c["telefono_contacto"], c["estado_registro"], old["pk"]))
+                        (c["nombre"], c["curso"], c["grado"], c["edad"], c["nombre_tutor"], c["telefono_contacto"], c["estado_registro"], old["pk"]))
             _insert_health(cur, old["pk"], c, rol)
             for col in changed:
                 cur.execute("""INSERT INTO historial_estudiantil (id_estudiante, tipo, campo_afectado, valor_anterior, valor_nuevo, descripcion, registrado_por_rol)
@@ -340,7 +340,7 @@ def actualizar_estudiante(matricula):
                         (old["pk"], text, rol))
     if changed or notes:
         labels = [FIELD_LABELS[col] for col in changed] + (["notas añadidas"] if notes else [])
-        audit(db, rol, "Actualizó estudiante", "estudiante", old["pk"], f'{c["nombre_completo"]} · {", ".join(labels)}')
+        audit(db, rol, "Actualizó estudiante", "estudiante", old["pk"], f'{c["nombre"]} · {", ".join(labels)}')
     db.commit()
     return jsonify(ok=True)
 
@@ -352,7 +352,7 @@ def archivar_estudiante(matricula):
     with db.cursor() as cur:
         row = get_active_student(cur, matricula, lock=True)
         cur.execute("UPDATE estudiantes SET estado='archivado', fecha_archivado=CURDATE(), motivo_archivo='Archivo manual' WHERE id=%s", (row["pk"],))
-    audit(db, rol, "Archivó estudiante", "estudiante", row["pk"], row["nombre_completo"])
+    audit(db, rol, "Archivó estudiante", "estudiante", row["pk"], row["nombre"])
     db.commit()
     return jsonify(ok=True)
 
@@ -375,7 +375,7 @@ def crear_visita():
         cur.execute("INSERT INTO visitas (id_estudiante, fecha_visita, motivo, despachado, registrada_por_rol) VALUES (%s,%s,%s,%s,%s)",
                     (student["pk"], when, reason, dispatched, rol))
         visit_id = cur.lastrowid
-    audit(db, rol, "Registró visita", "visita", visit_id, f'{student["nombre_completo"]} · Despachado: {"Sí" if dispatched else "No"}')
+    audit(db, rol, "Registró visita", "visita", visit_id, f'{student["nombre"]} · Despachado: {"Sí" if dispatched else "No"}')
     db.commit()
     return jsonify(id=visit_id), 201
 

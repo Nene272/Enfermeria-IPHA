@@ -38,7 +38,7 @@ INSERT INTO login_enfermeria (rol, contrasena_hash) VALUES
 CREATE TABLE estudiantes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     matricula VARCHAR(30) NOT NULL,
-    nombre_completo VARCHAR(200) NOT NULL,
+    nombre VARCHAR(200) NOT NULL,
     edad TINYINT UNSIGNED NULL,
     estado_registro ENUM('Al día', 'Revisar', 'Pendiente') NOT NULL DEFAULT 'Pendiente',
     motivo_archivo VARCHAR(80) NULL,
@@ -263,7 +263,7 @@ CREATE OR REPLACE VIEW vista_visitas_por_estudiante AS
 SELECT
     e.id AS id_estudiante,
     e.matricula,
-    e.nombre_completo,
+    e.nombre,
     e.grado,
     e.curso,
     e.estado,
