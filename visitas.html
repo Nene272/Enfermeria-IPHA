@@ -1,40 +1,45 @@
 <!doctype html>
 <html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Historial de visitas | IPHA Enfermería Escolar</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
-</head>
-<body>
-<div id="app" data-page="visits">
-  <section class="page-heading">
-    <div><p class="eyebrow">Atención escolar</p><h1>Historial de visitas</h1><p>Registra y consulta las visitas de estudiantes en Enfermería.</p></div>
-    <span class="status">Datos locales</span>
-  </section>
-  <section class="visits-overview">
-    <aside class="side-note"><h3>Registro de atención</h3><p>El historial permite revisar la frecuencia y las fechas de visita de cada estudiante.</p><ul><li>Busca por nombre o matrícula.</li><li>Selecciona un resultado antes de guardar.</li><li>Los registros se guardan únicamente en este navegador.</li></ul></aside>
-    <article class="split-stat"><span>Visitas registradas</span><strong id="visitTotal">0</strong></article>
-  </section>
-  <section class="card visit-form-card">
-      <div class="card-heading"><div><h2>Registrar visita</h2><p>Busca un estudiante y completa los datos de la atención.</p></div></div>
-      <form id="visitForm">
-        <div class="fields-grid">
-          <div class="field full student-lookup">
-            <label for="visitStudentSearch">Estudiante *</label>
-            <input class="control" id="visitStudentSearch" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="visitStudentOptions" aria-describedby="visitStudentHelp visitStudentError" autocomplete="off" placeholder="Buscar por nombre o matrícula" required>
-            <input id="visitStudent" name="student" type="hidden">
-            <div class="student-lookup-results" id="visitStudentOptions" role="listbox" aria-label="Resultados de estudiantes" hidden></div>
-            <small id="visitStudentHelp">Escribe para ver coincidencias y selecciona un estudiante.</small>
-            <span class="field-error" id="visitStudentError" aria-live="polite"></span>
-          </div>
-          <div class="field"><label for="visitDate">Fecha *</label><input class="control" id="visitDate" name="date" type="date" required></div>
-          <div class="field"><label for="visitTime">Hora de atención *</label><input class="control" id="visitTime" name="time" type="time" required></div>
-          <div class="field"><label for="visitReason">Motivo de la visita *</label><input class="control" id="visitReason" name="reason" maxlength="120" placeholder="Ej. Consulta general" required></div>
-          <div class="field full">
-            <div class="dispatch-check"><input id="visitDispatched" type="checkbox"><label for="visitDispatched">Estudiante despachado/a</label></div>
-            <small>Marcada = Sí; sin marcar = No.</small>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Historial de visitas | IPHA Enfermería Escolar</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="api.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div id="app" data-page="visits">
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow">Atención escolar</p>
+          <h1>Historial de visitas</h1>
+          <p>Registra y consulta las visitas de estudiantes en Enfermería.</p>
+        </div>
+        <span class="status">Datos locales</span>
+      </section>
+      <section class="visits-overview">
+        <aside class="side-note">
+          <h3>Registro de atención</h3>
+          <p>
+            El historial permite revisar la frecuencia y las fechas de visita de
+            cada estudiante.
+          </p>
+          <ul>
+            <li>Busca por nombre o matrícula.</li>
+            <li>Selecciona un resultado antes de guardar.</li>
+            <li>Los registros se guardan únicamente en este navegador.</li>
+          </ul>
+        </aside>
+        <article class="split-stat">
+          <span>Visitas registradas</span><strong id="visitTotal">0</strong>
+        </article>
+      </section>
+      <section class="card visit-form-card">
+        <div class="card-heading">
+          <div>
+            <h2>Registrar visita</h2>
+            <p>Busca un estudiante y completa los datos de la atención.</p>
           </div>
         </div>
         <div class="form-buttons"><button class="btn" type="submit">Guardar visita</button></div>
