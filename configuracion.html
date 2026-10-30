@@ -1,26 +1,20 @@
 <!doctype html>
 <html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Configuración | IPHA Enfermería Escolar</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
-</head>
-<body>
-  <div id="app" data-page="settings">
-    <section class="page-heading">
-      <div><p class="eyebrow">Administración del sistema</p><h1>Configuración</h1><p>Actualiza el año escolar y los contactos disponibles para las solicitudes.</p></div>
-    </section>
-    <div class="form-layout admin-settings-layout">
-      <form class="card admin-settings-form" id="adminSettingsForm">
-        <div class="card-heading"><div><h2>Datos de funcionamiento</h2><p>Los cambios de esta demostración se guardan en este navegador.</p></div></div>
-        <div class="field"><label for="schoolYear">Año escolar</label><input class="control" id="schoolYear" name="schoolYear" maxlength="20" required placeholder="2026–2027"></div>
-        <h3 class="settings-subheading">Orientadoras destinatarias</h3>
-        <div class="fields-grid">
-          <div class="field"><label for="contactOne">Orientadora 1</label><input class="control" id="contactOne" name="contactOne" maxlength="100" required></div>
-          <div class="field"><label for="contactTwo">Orientadora 2</label><input class="control" id="contactTwo" name="contactTwo" maxlength="100" required></div>
-          <div class="field full"><label for="contactThree">Orientadora 3</label><input class="control" id="contactThree" name="contactThree" maxlength="100" required></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Configuración | IPHA Enfermería Escolar</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="api.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div id="app" data-page="settings">
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow">Preferencias del sistema</p>
+          <h1>Configuración</h1>
+          <p>Información sobre el almacenamiento y la protección de datos.</p>
         </div>
         <div class="form-buttons"><button class="btn" type="submit">Guardar configuración</button></div>
       </form>

@@ -1,38 +1,142 @@
 <!doctype html>
 <html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Orientación | IPHA Enfermería Escolar</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
-</head>
-<body>
-  <div id="app" data-page="orientation">
-    <section class="page-heading">
-      <div><p class="eyebrow">Coordinación con Enfermería</p><h1>Solicitudes de medicamentos</h1><p>Revisa las solicitudes recibidas y registra una respuesta para Enfermería.</p></div>
-      <span class="status">Bandeja de Orientación</span>
-    </section>
-
-    <div>
-      <section class="stats-grid three-stats orientation-stats" aria-label="Resumen de solicitudes">
-        <article class="stat-card"><span class="stat-label">Pendientes</span><strong class="stat-value" id="orientationPending">0</strong><small class="stat-note">Requieren respuesta</small></article>
-        <article class="stat-card"><span class="stat-label">Atendidas</span><strong class="stat-value" id="orientationAttended">0</strong><small class="stat-note">Medicamento entregado</small></article>
-        <article class="stat-card"><span class="stat-label">No disponibles</span><strong class="stat-value" id="orientationUnavailable">0</strong><small class="stat-note">Sin entrega registrada</small></article>
-      </section>
-
-      <section class="card orientation-inbox">
-        <div class="card-heading"><div><h2>Bandeja de solicitudes</h2><p>Actualiza el resultado y, si corresponde, la cantidad entregada.</p></div><span class="count-pill" id="orientationCount">0 solicitudes</span></div>
-        <div class="admin-filters orientation-filters">
-          <div class="field"><label for="orientationStatusFilter">Estado</label><select class="control" id="orientationStatusFilter"><option value="">Todos los estados</option><option>Pendiente</option><option>Atendida</option><option>No disponible</option></select></div>
-          <div class="field"><label for="orientationContactFilter">Destinataria</label><select class="control" id="orientationContactFilter"><option value="">Todas las orientadoras</option></select></div>
-          <div class="field"><label for="orientationSearch">Buscar solicitud</label><input class="control" id="orientationSearch" type="search" placeholder="Medicamento o fecha"></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Reportes | IPHA Enfermería Escolar</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="api.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div id="app" data-page="reports">
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow">Administración</p>
+          <h1>Reportes</h1>
+          <p>Resumen de visitas por mes, curso y mención técnica.</p>
         </div>
-        <div class="message-list orientation-request-list" id="orientationList"></div>
-        <div class="info-banner orientation-privacy"><span class="info-icon" aria-hidden="true">i</span><span><strong>Solicitudes sin estudiante asociado</strong>Usa este espacio únicamente para coordinar medicamentos.</span></div>
-        <p class="prototype-note">Las solicitudes se guardan localmente en este navegador. La recepción segura requiere endpoints y autorización del servidor.</p>
+        <span class="status">Datos locales</span>
       </section>
+      <section class="card">
+        <div class="card-heading">
+          <div>
+            <h2>Filtrar visitas</h2>
+            <p>
+              Los resultados se muestran como totales, sin nombres ni
+              información médica.
+            </p>
+          </div>
+        </div>
+        <div class="report-controls">
+          <div class="field">
+            <label for="reportMonth">Mes</label
+            ><select class="filter-select" id="reportMonth">
+              <option value="">Todos los meses</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="reportGrade">Curso</label
+            ><select class="filter-select" id="reportGrade">
+              <option value="">Todos los cursos</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="reportMention">Mención técnica</label
+            ><select class="filter-select" id="reportMention">
+              <option value="">Todas las menciones</option>
+            </select>
+          </div>
+          <button class="btn secondary" id="exportVisitReport" type="button">
+            Descargar CSV
+          </button>
+        </div>
+        <div class="report-stats">
+          <article class="stat-card">
+            <span class="stat-label">Visitas encontradas</span
+            ><strong class="stat-value" id="reportVisitTotal">0</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Estudiantes atendidos</span
+            ><strong class="stat-value" id="reportStudentTotal">0</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Despachados</span
+            ><strong class="stat-value" id="reportDispatchedTotal">0</strong>
+          </article>
+        </div>
+        <div class="card-heading report-subheading">
+          <div>
+            <h2>Visitas por curso y mención</h2>
+            <p>Solo se incluyen grupos con visitas registradas.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Curso</th>
+                <th>Mención técnica</th>
+                <th>Visitas</th>
+                <th>Despachados</th>
+              </tr>
+            </thead>
+            <tbody id="reportRows"></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-heading">
+          <div>
+            <h2>Solicitudes de medicamentos</h2>
+            <p>
+              Totales de toda la bandeja; no se asocian a estudiantes ni se
+              agrupan por curso.
+            </p>
+          </div>
+        </div>
+        <div class="report-medication-stats">
+          <article class="split-stat">
+            <span>Total de solicitudes</span
+            ><strong id="reportMedicationTotal">0</strong>
+          </article>
+          <article class="split-stat">
+            <span>Pendientes</span
+            ><strong id="reportMedicationPending">0</strong>
+          </article>
+          <article class="split-stat">
+            <span>Atendidas</span
+            ><strong id="reportMedicationAttended">0</strong>
+          </article>
+          <article class="split-stat">
+            <span>No disponibles</span
+            ><strong id="reportMedicationUnavailable">0</strong>
+          </article>
+        </div>
+      </section>
+      <p class="prototype-note">
+        Los datos se guardan localmente. La exportación y los permisos deben
+        validarse en el servidor al integrar Flask/MySQL.
+      </p>
     </div>
-  </div>
+    <div class="report-stats">
+      <article class="stat-card"><span class="stat-label">Visitas encontradas</span><strong class="stat-value" id="reportVisitTotal">0</strong></article>
+      <article class="stat-card"><span class="stat-label">Estudiantes atendidos</span><strong class="stat-value" id="reportStudentTotal">0</strong></article>
+      <article class="stat-card"><span class="stat-label">Despachados</span><strong class="stat-value" id="reportDispatchedTotal">0</strong></article>
+    </div>
+    <div class="card-heading report-subheading"><div><h2>Visitas por curso y mención</h2><p>Solo se incluyen grupos con visitas registradas.</p></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Curso</th><th>Mención técnica</th><th>Visitas</th><th>Despachados</th></tr></thead><tbody id="reportRows"></tbody></table></div>
+  </section>
+  <section class="card">
+    <div class="card-heading"><div><h2>Solicitudes de medicamentos</h2><p>Totales de toda la bandeja; no se asocian a estudiantes ni se agrupan por curso.</p></div></div>
+    <div class="report-medication-stats">
+      <article class="split-stat"><span>Total de solicitudes</span><strong id="reportMedicationTotal">0</strong></article>
+      <article class="split-stat"><span>Pendientes</span><strong id="reportMedicationPending">0</strong></article>
+      <article class="split-stat"><span>Atendidas</span><strong id="reportMedicationAttended">0</strong></article>
+      <article class="split-stat"><span>No disponibles</span><strong id="reportMedicationUnavailable">0</strong></article>
+    </div>
+  </section>
+  <p class="prototype-note">Los datos se guardan localmente. La exportación y los permisos deben validarse en el servidor al integrar Flask/MySQL.</p>
+</div>
 </body>
 </html>
