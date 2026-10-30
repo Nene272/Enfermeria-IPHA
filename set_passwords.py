@@ -1,10 +1,9 @@
-"""Guarda el HASH de la contraseña de cada rol. Ejecutar una vez:  python set_passwords.py
-(funciona desde la carpeta backend/ o desde la raíz del proyecto)."""
+
 import getpass
 import os
 import sys
 
-# config.py y el .env están en la carpeta del proyecto (un nivel arriba de backend/).
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 from dotenv import load_dotenv
