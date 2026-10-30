@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS enfermeria_escolar
     COLLATE utf8mb4_unicode_ci;
 
 USE enfermeria_escolar;
-
+show tables
 
 -- Una credencial compartida por rol.
 -- El backend debe guardar aquí el hash, nunca la contraseña en texto plano.
@@ -256,7 +256,7 @@ LEFT JOIN visitas AS v
     ON v.id_estudiante = e.id
 GROUP BY e.id;
 
-
+select * from login_enfermeria
 -- Verificar las tablas creadas.
 SHOW TABLES;
 
@@ -300,3 +300,48 @@ INSERT INTO datos_salud_estudiante (id_estudiante, alergias, medicamentos_releva
     ('enfermeria', 'CREAR', 'estudiantes', 1, 'Registro inicial del estudiante Carlos Pérez.'),
     ('orientacion', 'CREAR', 'solicitudes_medicamentos', 1, 'Solicitud de Paracetamol para botiquín auxiliar.'),
     ('administracion', 'CONFIRMAR', 'cierres_escolares', 1, 'Confirmación del proceso de cierre escolar período 2025-2026.');
+
+USE enfermeria_escolar;
+
+DROP VIEW IF EXISTS vista_visitas_por_estudiante;
+
+-- Estudiantes: matrícula, nombre completo, edad, estado del registro...
+ALTER TABLE estudiantes
+    ADD COLUMN matricula VARCHAR(30) NULL AFTER id,
+    ADD COLUMN nombre VARCHAR(200) NULL AFTER matricula,
+    ADD COLUMN edad TINYINT UNSIGNED NULL,
+    ADD COLUMN estado_registro ENUM('Al día', 'Revisar', 'Pendiente') NOT NULL DEFAULT 'Pendiente',
+    ADD COLUMN motivo_archivo VARCHAR(80) NULL,
+    MODIFY curso ENUM('Mecatronica','Informatica','Electricidad','Refrigeracion','Contabilidad','Mecanica') NULL,
+    MODIFY telefono_contacto VARCHAR(30) NULL;
+
+UPDATE estudiantes SET nombre = TRIM(CONCAT(nombre, ' ', apellido));
+UPDATE estudiantes SET matricula = CONCAT('SIN-MAT-', id) WHERE matricula IS NULL;  -- solo si ya había filas
+ALTER TABLE datos_salud_estudiante ADD COLUMN grupo_sanguineo VARCHAR(12) NULL AFTER id_estudiante;
+
+-- Visitas: momento en que se registró (la pantalla lo muestra aparte de la fecha de la visita)
+ALTER TABLE visitas ADD COLUMN registrada_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER despachado;
+
+-- Solicitudes de medicamentos: presentación y cantidades numéricas (solicitada / entregada)
+ALTER TABLE solicitudes_medicamentos
+    ADD COLUMN presentacion VARCHAR(100) NULL AFTER medicamento,
+    MODIFY cantidad_solicitada INT UNSIGNED NULL,
+    ADD COLUMN cantidad_entregada INT UNSIGNED NOT NULL DEFAULT 0 AFTER cantidad_solicitada;
+
+-- Auditoría
+ALTER TABLE registros_auditoria MODIFY entidad VARCHAR(80) NOT NULL DEFAULT 'general';
+ALTER TABLE datos_salud_estudiante ADD COLUMN grupo_sanguineo VARCHAR(12) NULL AFTER id_estudiante;
+
+-- Visitas: momento en que se registró (la pantalla lo muestra aparte de la fecha de la visita)
+ALTER TABLE visitas ADD COLUMN registrada_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER despachado;
+
+-- Solicitudes de medicamentos: presentación y cantidades numéricas (solicitada / entregada)
+ALTER TABLE solicitudes_medicamentos
+    ADD COLUMN presentacion VARCHAR(100) NULL AFTER medicamento,
+    MODIFY cantidad_solicitada INT UNSIGNED NULL,
+    ADD COLUMN cantidad_entregada INT UNSIGNED NOT NULL DEFAULT 0 AFTER cantidad_solicitada;
+
+-- Auditoría
+ALTER TABLE registros_auditoria MODIFY entidad VARCHAR(80) NOT NULL DEFAULT 'general';
+
+select * from estudiantes

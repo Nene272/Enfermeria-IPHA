@@ -17,7 +17,7 @@ ALTER TABLE solicitudes_medicamentos
 ALTER TABLE registros_auditoria MODIFY entidad VARCHAR(80) NOT NULL DEFAULT 'general';
 
 CREATE OR REPLACE VIEW vista_visitas_por_estudiante AS
-SELECT e.id AS id_estudiante, e.matricula, e.nombre_completo, e.grado, e.curso, e.estado,
+SELECT e.id AS id_estudiante, e.matricula, e.nombre, e.grado, e.curso, e.estado,
        COUNT(v.id) AS cantidad_visitas, MAX(v.fecha_visita) AS ultima_visita
 FROM estudiantes AS e LEFT JOIN visitas AS v ON v.id_estudiante = e.id
 GROUP BY e.id;
