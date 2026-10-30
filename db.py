@@ -52,7 +52,7 @@ def rollback():
 # Columnas que api.py necesita. Si falta alguna, la base no tiene aplicado migracion.sql.
 REQUIRED_COLUMNS = {
     "login_enfermeria": ["rol", "contrasena_hash"],
-    "estudiantes": ["id", "matricula", "nombre_completo", "curso", "grado", "edad", "estado_registro", "nombre_tutor",
+    "estudiantes": ["id", "matricula", "nombre", "curso", "grado", "edad", "estado_registro", "nombre_tutor",
                     "telefono_contacto", "estado", "fecha_archivado", "motivo_archivo"],
     "datos_salud_estudiante": ["id_estudiante", "grupo_sanguineo", "alergias", "prioridad", "observaciones", "actualizado_por_rol"],
     "historial_estudiantil": ["id", "id_estudiante", "tipo", "campo_afectado", "valor_anterior", "valor_nuevo", "descripcion",
